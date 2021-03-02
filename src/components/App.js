@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import DashboardList from "./DashboardList";
 
 
 class App extends Component {
@@ -6,6 +7,7 @@ class App extends Component {
     return(
       <div className="App">
      <h2>Hello Youtube</h2>
+     <DashboardList/>
      
     </div>
     );
