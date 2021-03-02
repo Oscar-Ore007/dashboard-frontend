@@ -2,11 +2,11 @@ import React from 'react';
 import DashBoardCard from './DashboardCard';
 import DashboardCard from './DashboardCard';
 
-const DashboardList = ({title}) => {
+const DashboardList = ({title, cards}) => {
     return(
         <div style={styles.containers}>
             <h4>{title}</h4>
-            <DashBoardCard/>
+            {cards.map(card => <DashboardCard text={card.text} />)}
         </div>
     )   
 };
