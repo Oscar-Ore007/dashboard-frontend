@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import DashboardList from "./DashboardList";
 import { connect } from "react-redux";
-
+import DashboardActionButton from "./DashboardActionButton";
 
 class App extends Component {
   render() {
@@ -14,6 +14,7 @@ class App extends Component {
       { lists.map(list => (
       <DashboardList key={list.id} title ={list.title} cards={list.cards} />
       ))}
+      <DashboardActionButton list /> 
      </div>
     </div>
     );
