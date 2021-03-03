@@ -7,7 +7,7 @@ import CardContent from '@material-ui/core/CardContent';
 
 const DashBoardCard = ({text}) => {
     return (
-        <Card>
+        <Card style={styles.cardContainer}>
             <CardContent>
             <Typography gutterBottom>
             {text}
@@ -16,5 +16,11 @@ const DashBoardCard = ({text}) => {
       </Card>
     );
 };
+
+const styles = {
+    cardContainer: {
+        marginBottom: 8
+    }
+}
 
 export default DashBoardCard;
