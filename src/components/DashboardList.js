@@ -5,9 +5,11 @@ const DashboardList = ({title, cards}) => {
     return(
         <div style={styles.containers}>
             <h4>{title}</h4>
-            {cards.map(card => <DashboardCard text={card.text} />)}
+            {cards.map(card => (
+            <DashboardCard key={card.id} text={card.text} />
+            ))}
         </div>
-    )   
+    );  
 };
 
 const styles = { 

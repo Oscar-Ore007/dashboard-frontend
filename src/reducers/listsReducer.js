@@ -16,7 +16,7 @@ const initialState = [
     },
     {
         title: "This new card",
-        id: 0, 
+        id: 1, 
         cards: [
             {
                 id: 0,
