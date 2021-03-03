@@ -3,12 +3,34 @@ import DashboardList from "./DashboardList";
 import { connect } from "react-redux";
 import DashboardActionButton from "./DashboardActionButton";
 import { DragDropContext } from "react-beautiful-dnd";
+import { sort } from "../actions";
+import styled from "styled-components";
+
+
+const ListContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
 
 class App extends Component {
 
-  onDragEnd = () => {
-    //reorderinglofic 
-  };
+  onDragEnd = (result) => {
+    const { destination, source, draggableId} = result; 
+  
+      if(!destination) {
+        return;
+        }
+
+        this.props.dispatch(
+          sort(
+            source.droppableId,
+            destination.droppableId,
+            source.index,
+            destination.index,
+            draggableId
+            )
+          );
+    };
   render() {
 
     const {lists} = this.props;
@@ -16,7 +38,7 @@ class App extends Component {
       <DragDropContext onDragEnd={this.onDragEnd}>
       <div className="App">
      <h2>Hello Youtube</h2>
-     <div style={styles.listsContainer}>
+     <ListContainer>
       { lists.map(list => (
       <DashboardList 
       listID={list.id}
@@ -25,7 +47,7 @@ class App extends Component {
       cards={list.cards} />
       ))}
       <DashboardActionButton list /> 
-     </div>
+     </ListContainer>
     </div>
     </DragDropContext>
     );
