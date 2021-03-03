@@ -10,15 +10,23 @@ class App extends Component {
     return(
       <div className="App">
      <h2>Hello Youtube</h2>
+     <div style={styles.listsContainer}>
       { lists.map(list => (
       <DashboardList title ={list.title} cards={list.cards} />
       ))}
-     
+     </div>
     </div>
     );
   }
 }
 
+const styles = {
+  listsContainer: {
+    display: "flex",
+    flexDirection: "row",
+    marginRight: 8
+  }
+};
 const mapStateToProps = state => ({
   lists: state.lists 
 });
