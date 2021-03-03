@@ -3,6 +3,8 @@ import Icon from "@material-ui/core/Icon";
 import Textarea from 'react-textarea-autosize';
 import Card from "@material-ui/core/Card";
 import Button from "@material-ui/core/Button";
+import { connect } from "react-redux";
+import { addList } from "../actions";
 
 class DashboardActionButton extends React.Component {
 
@@ -26,6 +28,16 @@ class DashboardActionButton extends React.Component {
         this.setState({
             text: e.target.value
         });
+    };
+
+    handleAddList = () => {
+        const { dispatch } = this.props;
+        const { text } = this.state;
+
+        if(text) {
+            dispatch(addList(text));
+        }
+        return;
     };
 
     renderAddButton = () => {
@@ -90,6 +102,7 @@ class DashboardActionButton extends React.Component {
             </Card>
             <div style={styles.formButtonGroup}>
                 <Button 
+                onMouseDown={this.handleAddList}
                 variant="contained" 
                 style={{color: "white", backgroundColor: "#5aac44"}} 
                 >{buttonTitle} {" "} 
@@ -125,4 +138,4 @@ const styles = {
     }
 };
 
-export default DashboardActionButton;
+export default connect () (DashboardActionButton);
