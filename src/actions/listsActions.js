@@ -12,16 +12,18 @@ export const sort = (
     droppableIdEnd,
     droppableIndexStart,
     droppableIndexEnd,
-    draggableId
+    draggableId,
+    type
 ) => {
     return {
-        type: CONSTANTS.DRAG_HAPPENED,
+        type: CONSTANTS.DRAG_HAPPENED, 
         payload: {
             droppableIdStart,
             droppableIdEnd,
             droppableIndexStart,
             droppableIndexEnd,
-            draggableId
+            draggableId,
+            type
         }
     };
 };

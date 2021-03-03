@@ -73,16 +73,24 @@ const listsReducer = (state = initialState, action) => {
                 return newState;
             }
 
-                case CONSTANTS.DRAG_HAPPENED:
-
+        case CONSTANTS.DRAG_HAPPENED:
                     const { 
                         droppableIdStart,
                         droppableIdEnd,
                         droppableIndexStart,
                         droppableIndexEnd,
-                        draggableId
+                        draggableId,
+                        type
                     } = action.payload;
                     const newState = [...state];
+
+                //dragging list around
+
+            if(type === "list") {
+                const list = newState.splice(droppableIndexStart, 1);
+                newState.splice(droppableIndexEnd, 0, ...list);
+                return newState;
+            }
 
                     //in the same list 
                     if(droppableIdStart === droppableIdEnd) {

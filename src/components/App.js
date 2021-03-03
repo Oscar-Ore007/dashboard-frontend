@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import DashboardList from "./DashboardList";
 import { connect } from "react-redux";
 import DashboardActionButton from "./DashboardActionButton";
-import { DragDropContext } from "react-beautiful-dnd";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { sort } from "../actions";
 import styled from "styled-components";
 
@@ -15,7 +15,7 @@ const ListContainer = styled.div`
 class App extends Component {
 
   onDragEnd = (result) => {
-    const { destination, source, draggableId} = result; 
+    const { destination, source, draggableId, type } = result; 
   
       if(!destination) {
         return;
@@ -27,10 +27,13 @@ class App extends Component {
             destination.droppableId,
             source.index,
             destination.index,
-            draggableId
+            draggableId,
+            type
             )
           );
     };
+
+
   render() {
 
     const {lists} = this.props;
@@ -38,29 +41,33 @@ class App extends Component {
       <DragDropContext onDragEnd={this.onDragEnd}>
       <div className="App">
      <h2>Hello Youtube</h2>
-     <ListContainer>
-      { lists.map(list => (
-      <DashboardList 
-      listID={list.id}
-      key={list.id} 
-      title ={list.title} 
-      cards={list.cards} />
-      ))}
-      <DashboardActionButton list /> 
-     </ListContainer>
+     <Droppable droppableId="all-lists" direction="horizontal" type="list">
+       {provided => (
+           <ListContainer {...provided.droppableProps} 
+           ref={provided.innerRef}
+           >
+           { lists.map((list, index)=> (
+           <DashboardList 
+           listID={list.id}
+           key={list.id} 
+           title ={list.title} 
+           cards={list.cards}
+           index ={index}
+            />
+           ))}
+           {provided.placeholder}
+           <DashboardActionButton list /> 
+          </ListContainer>
+       )}
+       </Droppable>
+   
     </div>
     </DragDropContext>
     );
   }
 }
 
-const styles = {
-  listsContainer: {
-    display: "flex",
-    flexDirection: "row",
-    marginRight: 8
-  }
-};
+
 const mapStateToProps = state => ({
   lists: state.lists 
 });
