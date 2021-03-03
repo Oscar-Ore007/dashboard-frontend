@@ -4,7 +4,7 @@ import Textarea from 'react-textarea-autosize';
 import Card from "@material-ui/core/Card";
 import Button from "@material-ui/core/Button";
 import { connect } from "react-redux";
-import { addList } from "../actions";
+import { addList, addCard } from "../actions";
 
 class DashboardActionButton extends React.Component {
 
@@ -35,10 +35,25 @@ class DashboardActionButton extends React.Component {
         const { text } = this.state;
 
         if(text) {
+            this.setState({
+                text: ""
+            });
             dispatch(addList(text));
         }
         return;
     };
+
+    handleAddCard = () => {
+        const { dispatch, listID } = this.props;
+        const { text } = this.state;
+
+        if(text) {
+            this.setState({
+                text: ""
+            });
+            dispatch(addCard(listID, text));
+    }
+};
 
     renderAddButton = () => {
         const {list} = this.props;
@@ -102,7 +117,8 @@ class DashboardActionButton extends React.Component {
             </Card>
             <div style={styles.formButtonGroup}>
                 <Button 
-                onMouseDown={this.handleAddList}
+                //this runs before the onBlur function 
+                onMouseDown={ list ? this.handleAddList : this.handleAddCard}
                 variant="contained" 
                 style={{color: "white", backgroundColor: "#5aac44"}} 
                 >{buttonTitle} {" "} 

@@ -12,7 +12,8 @@ class App extends Component {
      <h2>Hello Youtube</h2>
      <div style={styles.listsContainer}>
       { lists.map(list => (
-      <DashboardList key={list.id} title ={list.title} cards={list.cards} />
+      <DashboardList listID={list.id}
+      key={list.id} title ={list.title} cards={list.cards} />
       ))}
       <DashboardActionButton list /> 
      </div>

@@ -2,14 +2,14 @@ import React from 'react';
 import DashboardCard from './DashboardCard';
 import DashboardActionButton from './DashboardActionButton';
 
-const DashboardList = ({title, cards}) => {
+const DashboardList = ({title, cards, listID }) => {
     return(
         <div style={styles.containers}>
             <h4>{title}</h4>
             {cards.map(card => (
             <DashboardCard key={card.id} text={card.text} />
             ))}
-            <DashboardActionButton/>
+            <DashboardActionButton listID={listID} />
         </div>
     );  
 };
