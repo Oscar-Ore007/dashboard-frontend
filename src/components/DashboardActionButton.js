@@ -1,4 +1,5 @@
 import React from "react";
+import Icon from "@material-ui/core/Icon";
 
 class DashboardActionButton extends React.Component {
 
@@ -9,14 +10,14 @@ class DashboardActionButton extends React.Component {
         return (
             <div>
                 <Icon>add</Icon>
-                <p>Add another card</p>
+                <p>{buttonText}</p>
             </div>
         )
     }
 
 
     render() {
-        return null
+        return this.renderAddButton();
     }
 }
 
