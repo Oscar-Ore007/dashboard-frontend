@@ -3,6 +3,9 @@ import DashboardCard from './DashboardCard';
 import DashboardActionButton from './DashboardActionButton';
 import { Droppable, Draggable } from "react-beautiful-dnd";
 import styled from "styled-components";
+import { connect } from "react-redux";
+import { editTitle, deleteList } from "../actions";
+import Icon from "@material-ui/core/Icon";
 
 const ListContainer = styled.div`
 background-color: #dfe3e6;
@@ -10,7 +13,7 @@ border-radius: 3px;
 width: 300px;
 padding: 8px;
 height: 100%;
-margin-right: 8px;
+margin: 0 8px 0 0;
 `;
 
 

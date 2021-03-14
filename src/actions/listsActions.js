@@ -7,7 +7,7 @@ export const addList = title => {
         const boardID = getState().activeBoard;
         const id = uuid();
         dispatch({
-            type: CONSTANT.ADD_LIST,
+            type: CONSTANTS.ADD_LIST,
             payload: { title, boardID, id }
         });
     };
