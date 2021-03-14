@@ -43,8 +43,20 @@ class DashboardCreate extends React.PureComponent {
         }
     };
 
+    handleAddCard = () => {
+        const { dispatch, listID} = this.props;
+        const { text } = this.state;
+
+        if (text) {
+            this.setState({
+                text: ""
+            });
+            dispatch(addCard(listID, text));
+        }
+    };
+
     renderOpenForm = () => {
-        const { list } this.props;
+        const { list } = this.props;
 
         const buttonText = list ? "Add another list" : "Add another card";
         const buttonTextOpacity = list ? 1 : 0.5;
