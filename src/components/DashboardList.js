@@ -120,7 +120,7 @@ const DashboardList = ({title, cards, listID, index, dispatch }) => {
                         />
                    ))}
                    {provided.placeholder}
-                   <Dashboardreate listID={listID} />
+                   <DashboardCreate listID={listID} />
                    </div>
                    </div>
                    )}
