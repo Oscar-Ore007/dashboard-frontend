@@ -47,3 +47,16 @@ export const editTitle = (listID, newTitle) => {
         }
     };
 };
+
+export const deleteList = listID => {
+    return (dispatch, getState) => {
+        const boardID = getState().activeBoard;
+        return dispatch({
+            type: CONSTANTS.DELETE_LIST,
+            payload: {
+                listID,
+                boardID
+            }
+        });
+    };
+};
