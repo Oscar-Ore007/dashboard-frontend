@@ -1,9 +1,15 @@
 import { CONSTANTS } from "../actions";
+import uuid from "uuidv4";
+
 
 export const addList = title => {
-    return { 
-        type: CONSTANTS.ADD_LIST,
-        payload: title
+    return (dispatch, getState) => {
+        const boardID = getState().activeBoard;
+        const id = uuid();
+        dispatch({
+            type: CONSTANT.ADD_LIST,
+            payload: { title, boardID, id }
+        });
     };
 };
 
@@ -15,7 +21,9 @@ export const sort = (
     draggableId,
     type
 ) => {
-    return {
+    return (dispatch, getState) => {
+        const boardID = getState().activeBoard;
+        dispatch({
         type: CONSTANTS.DRAG_HAPPENED, 
         payload: {
             droppableIdStart,
@@ -23,7 +31,19 @@ export const sort = (
             droppableIndexStart,
             droppableIndexEnd,
             draggableId,
-            type
+            type,
+            boardID
+        }
+     });
+    };
+};
+
+export const editTitle = (listID, newTitle) => {
+    return {
+        type: CONSTANTS.EDIT_LIST_TITLE,
+        payload: {
+            listID,
+            newTitle
         }
     };
 };
