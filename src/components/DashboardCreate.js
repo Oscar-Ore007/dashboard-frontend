@@ -32,15 +32,17 @@ class DashboardCreate extends React.PureComponent {
     };
 
     handleAddList = () => {
-        const { dispatch, listID } = this.props;
+        const { dispatch } = this.props;
         const { text } = this.state;
 
         if (text) {
             this.setState({
-                text: ""
+                text: " "
             });
-            dispatch(addCard(listID, text));
+            dispatch(addList(text));
         }
+
+        return;
     };
 
     handleAddCard = () => {
@@ -61,6 +63,7 @@ class DashboardCreate extends React.PureComponent {
         const buttonText = list ? "Add another list" : "Add another card";
         const buttonTextOpacity = list ? 1 : 0.5;
         const buttonTextColor = list ? "white" : "inherit";
+        const buttonTextBackground = list ? "rgba(0,0,0,.15)" : "inherit";
 
         const OpenFormButton = styled.div`
         display: flex;

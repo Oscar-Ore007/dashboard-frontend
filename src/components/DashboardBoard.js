@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import DashboardCreate from "./DashboardCreate";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import styled from "styled-components";
-import { sorrt, setActiveBoard } from "../actions";
+import { sort, setActiveBoard } from "../actions";
 import { Link } from "react-router-dom";
 
 const ListsContainer = styled.div`
@@ -20,7 +20,7 @@ class DashboardBoard extends PureComponent {
     }
 
     onDragEnd = result => {
-        const { destination, source, draggableID, type } = results;
+        const { destination, source, draggableId, type } = result;
 
         if (!destination) {
             return;
@@ -58,12 +58,12 @@ class DashboardBoard extends PureComponent {
                         ref={provided.innerRef}
                         >
                             {listOrder.map((listID, index) => {
-                                const list = lists[listsID];
+                                const list = lists[listID];
                                 if (list) {
-                                    const listCards = list.cards.map(cardID => cards[cardsID]);
+                                    const listCards = list.cards.map(cardID => cards[cardID]);
 
                                     return (
-                                        <TrelloList
+                                        <DashboardList
                                         listID={list.id}
                                         key={list.id}
                                         title={list.title}

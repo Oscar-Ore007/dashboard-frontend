@@ -7,8 +7,8 @@ const AppRouter = () => {
     return (
         <Router>
             <div>
-                <Route path="/" exact component{Home} /> 
-                <Route path="/:boardID" component={TrelloBoard} /> 
+                <Route path="/" exact component={Home} /> 
+                <Route path="/:boardID" component={DashboardBoard} /> 
             </div>
         </Router>
     );

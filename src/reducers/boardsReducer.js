@@ -8,7 +8,7 @@ const initialState = {
     }
 };
 
-const boardsReducer = (state = intialState, action) => {
+const boardsReducer = (state = initialState, action) => {
     switch (action.type) {
         case CONSTANTS.ADD_LIST: {
             const { boardID, id } = action.payload;
@@ -35,7 +35,7 @@ case CONSTANTS.DRAG_HAPPENED: {
 
     if (type === "list") {
         const pulledOutList = lists.splice(droppableIndexStart, 1);
-        lists.splice(droppableIndexEnd, 0, ...pullledOutList);
+        lists.splice(droppableIndexEnd, 0, ...pulledOutList);
         board.lists = lists;
 
         return {...state, [boardID]: board};

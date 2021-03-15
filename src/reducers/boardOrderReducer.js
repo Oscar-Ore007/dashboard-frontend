@@ -1,11 +1,13 @@
 import { CONSTANTS } from "../actions";
-import uuid from "uuidv4";
+// import { v4 as uuidv4 } from 'uuid';
 
-console.log(uuid());
+
+
+// console.log(uuid());
 
 const initialState = ["board-0"];
 
-const boardOrderReducer = (state = initialState, aciton) =. {
+const boardOrderReducer = (state = initialState, action) => {
     switch (action.type) {
         case CONSTANTS.ADD_BOARD: {
             return [...state, `board-${action.payload.id}`];

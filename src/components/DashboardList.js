@@ -73,11 +73,15 @@ const DashboardList = ({title, cards, listID, index, dispatch }) => {
     };
 
     const handleFocus = e => {
+        e.target.select();
+    };
+
+    const handleChange = e => {
         e.preventDefault();
         setListTitle(e.target.value);
     };
 
-    const handleFinishedEditing = e => {
+    const handleFinishEditing = e => {
         setIsEditing(false);
         dispatch(editTitle(listID, listTitle));
 };

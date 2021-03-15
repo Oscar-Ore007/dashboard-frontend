@@ -28,8 +28,8 @@ export const sort = (
         payload: {
             droppableIdStart,
             droppableIdEnd,
-            droppableIndexStart,
             droppableIndexEnd,
+            droppableIndexStart,
             draggableId,
             type,
             boardID

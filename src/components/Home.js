@@ -43,16 +43,21 @@ box-shadow: 0 2px 4px grey;
 align-self: center;
 `;
 
-const Home = ({ boards, boardOrder, dispatch}) => {
+const Home = ({ boards, boardOrder, dispatch }) => {
 
-    const [newBoardTitle, setNewBoardTitle] = useState("");
+    const [newBoardTitle, setNewBoardTitle] = useState(" ");
+
 
     const handleChange = e => {
+        setNewBoardTitle(e.target.value);
+    };
+
+    const handleSubmit = e => {
         e.preventDefault();
         dispatch(addBoard(newBoardTitle));
     };
 
-    const renderBaords = () => {
+    const renderBoards = () => {
         return boardOrder.map(boardID => {
             const board = boards[boardID];
 
@@ -89,7 +94,6 @@ const Home = ({ boards, boardOrder, dispatch}) => {
             {renderCreateBoard()}
         </HomeContainer>
     );
-
 };
 
 const mapStateToProps = state => ({

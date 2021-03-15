@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 const DashboardOpenForm = ({ list, childern, onClick}) => {
     const buttonTextOpacity = list ? 1 : 0.5;
-    const buttonTextColor = list  "white" : "inherit";
+    const buttonTextColor = list ? "white" : "inherit";
     const buttonTextBackground = list ? "rbga(0,0,0,.15)" : "inherit";
 
     const OpenFormButton = styled.div`
@@ -18,7 +18,7 @@ const DashboardOpenForm = ({ list, childern, onClick}) => {
     padding-left: 10px;
     padding-right: 10px;
     opacity: ${buttonTextOpacity};
-    colorL ${buttonTextColor};
+    color: ${buttonTextColor};
     background-color: ${buttonTextBackground};
     `;
 
