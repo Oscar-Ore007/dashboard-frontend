@@ -1,12 +1,17 @@
 import React from 'react';
 
 import './App.css';
-import Header from './components/Header'
+import { Switch, Route } from 'react-router-dom'
+
+import About from './components/About'
 
 function App() {
     return (
-        <div className="App">
+        <Switch>
+            <Route path="/about" component={About} /> 
 
-        </div>
+        </Switch>
     );
 }
+
+export default App; 

@@ -8,8 +8,16 @@ a {
     text-decoration: none;
 }
 
+li {
+    list-style-type: none;
+}
+
+.header {
+    background: rgb(130, 240, 203);
+}
+
 .header-container {
-    width: 80%,
+    width: 80%;
     margin: 0 auto;
     padding: 10px 0;
     display: flex;
@@ -18,10 +26,25 @@ a {
 }
 
 .header h1 {
-
+    font-size: 2em;
 }
 
-.header ul li {
-    display: inline-block;
-    margin-left: 15px;
+.header ul li a:hover {
+    color: rgb(252, 252, 252);
+}
+
+.header a {
+    padding: 15px;
+}
+
+.header a:visited {
+    color: black;
+}
+
+.about-container {
+    color: black;
+    font-size: 1.5em;
+    width: 75%;
+    margin: 10px auto;
+    text-align: center
 }
