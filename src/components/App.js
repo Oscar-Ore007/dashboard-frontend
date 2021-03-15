@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import DashboardList from "./DashboardList";
 import { connect } from "react-redux";
+import DashboardCreate from "./DashboardCreate";
 import DashboardActionButton from "./DashboardActionButton";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { sort } from "../actions";
