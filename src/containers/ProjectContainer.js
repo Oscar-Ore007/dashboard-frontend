@@ -5,7 +5,7 @@ class ProjectContainer extends Component {
 
     state = {
         projectList: [
-            { name: 'Project1'}
+            { name: 'My First Project!'}
         ]
     };
 
