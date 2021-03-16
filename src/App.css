@@ -39,6 +39,29 @@ li {
     flex-wrap: wrap;
 }
 
+.list-container {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    align-items: flex-start;
+    width: 100vw;
+    height: 90vh;
+}
+
+.list-card-container {
+    display: flex;
+    min-width: 14rem;
+    max-width: 20rem;
+    word-break: break-all;
+    flex-direction: column;
+    flex-wrap: wrap;
+    flex: 1 1 auto;
+    background: rgb(214, 214, 214);
+    font-size: 10px;
+    margin: 10px;
+    padding: 1em;
+}
+
 .header {
     background: rgb(130, 240, 203);
 }
@@ -99,6 +122,25 @@ li {
     font-size: 20px;
 }
 
-#login-component input[type=submit] {
-    background: red;
+input[type=submit] {
+    background: rgb(130, 240, 203);
+    border: 1px solid rgb(206, 205, 205);
+    border-radius: 15px;
+    outline: none;
+    width: 200px;
+    cursor: pointer; 
+    font-size: 1em;
+}
+
+input[type=submit]:hover {
+    color: white;
+    background: rgb(87, 228, 181);
+}
+
+.to-do-card {
+    margin: 10px 0;
+    background: white;
+    font-size: 8px;
+    padding: 10px;
+    border-radius: 10px;
 }
