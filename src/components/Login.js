@@ -15,17 +15,27 @@ class Login extends Component {
     render(){
         return(
             <div className='login-component'>
-                <h2>Login Page</h2>
+                <div id="login-header">
+                <h2>Login</h2>
+                </div>
                 <form>
                     <input
                         type='text'
                         name='username'
                         placeholder='Username'
                         onChange={this.handleChange}
-                        value={this.state.password}
-                    />
+                        value={this.state.username}
+                    /><br></br>
+                    <input 
+                    type='password'
+                    name='password'
+                    placeholer='Password'
+                    onChange={this,handleChange}
+                    value={this.state.password}
+                    /> <br></br>
                     <input type='submit' />
                 </form>
+                <p><Link to={'/signup'}>Create an Account</Link></p>
             </div>
         );
     }
