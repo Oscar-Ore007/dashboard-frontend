@@ -62,6 +62,8 @@ class Signup extends Component {
                     <input type='submit' /> 
                 </form>
                     <p><Link to={'/login'}>Back to Login</Link></p>
+                    {/*
+                    */}
             </div>
         );
     }

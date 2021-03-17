@@ -279,14 +279,15 @@ input {
 }
 
 #login-header {
+    color: rgb(216, 216, 216);
     margin: 10px 0 2em;
     text-align: center;
     font-size: 20px;
 }
 
 .login-component input[type=submit] {
-    background: rgb(130, 240, 203);
-    border: 1px solid rgb(206, 205, 205);
+    background: rgb(19, 70, 138, 30%);
+    border: 1px solid rgb(19, 70, 138, 30%);
     border-radius: 15px;
     outline: none;
     width: 200px;
@@ -296,7 +297,11 @@ input {
 
 .login-component input[type=submit]:hover {
     color: white;
-    background: rgb(87, 228, 181);
+    background: rgb(19, 70, 138, 70%);
+}
+
+.login-component a:visted {
+    color: rgb(216, 216, 216);
 }
 
 .to-do-card {

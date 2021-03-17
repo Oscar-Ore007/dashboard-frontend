@@ -13,10 +13,11 @@ class Header extends Component {
                     <h1>DashBoard</h1>
                     { this.props.login ?
                     <ul>
-                        <li><Link to="/" className='cool-link'>Home</Link></li>
-                        <li><Link to="/about" className='cool-link'>About</Link></li>
-                        <li><Link to='/login' className='cool-link' onClick=
-                        {this.handleClick}>{this.props.currentUser.username}</Link></li>
+                        <li><Link to="/" className='cool-link' style={{color: 'rbg(216,216, 216)'}}>Home</Link></li>
+                        <li><Link to="/about" className='cool-link' style={{color: 'rgb(216, 216, 216)'}}>About</Link></li>
+                        <li><Link to='/login' className='cool-link' style={{color: 
+                            'rgb(216, 216, 216)'}} onClick={this.handleClick}>
+                        {this.props.currentUser.username}</Link></li>
                     </ul>
                     :
                     null 

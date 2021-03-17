@@ -17,6 +17,20 @@ class Card extends Component {
             hover: false
         });
     };
+
+    handleClick = () => {
+        console.log(this.props);
+        fetch(`http://localhost:3000/tasks/${this.props.taskId}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                'Accept': "application/json",
+                'Authorization': localStorage.token 
+            }
+        })
+
+        this.props.deleteCard(this.props.taskId);
+    };
     render() {
         return (
                 <div className='card-component'>

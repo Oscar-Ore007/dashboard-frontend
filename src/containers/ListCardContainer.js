@@ -21,6 +21,14 @@ class ListCardContainer extends Component {
         });
     };
 
+    deleteCard = taskID => {
+        let newTaskCardsArr = this.state.taskCards.filter(taskObj => taskObj.id !=
+            taskID)
+            this.setState({
+                taskCards: newTaskCardsArr
+            })
+    }
+
     handleSubmit = e => {
         e.preventDefault();
         fetch(`http://localhost:3000/tasks`, {
@@ -37,8 +45,15 @@ class ListCardContainer extends Component {
         })
         .then(resp => resp.json())
         .then(respData => {
+            let id =respData.data.id
+            let { content, list_id } = respData.data.attributes 
+            let newTaskCardObj = {
+                id, 
+                content,
+                list_id
+            }
             this.setState({
-                taskCards: [...this.state.taskCards, respData.data.attributes],
+                taskCards: [...this.state.taskCards, newTaskCardObj],
                 clicked: false,
                 inputValue: ''
             })
@@ -51,7 +66,8 @@ class ListCardContainer extends Component {
                 <div className='list-card-container'>
                     <h2>{this.props.listCards.name}</h2>
                     {this.state.taskCards.map(task => (
-                        <Card task={task.content} taskId={task.id} />
+                        <Card key={task.id} task={task.content} taskId={task.id}
+                        deleteCard={this.deleteCard} />
                     ))}
                     {!this.state.clicked ? (
                         <div className='add-card-button'>
