@@ -38,7 +38,9 @@ class ListCardContainer extends Component {
         .then(resp => resp.json())
         .then(respData => {
             this.setState({
-                taskCards: [...this.state.taskCards, respData.data.attributes]
+                taskCards: [...this.state.taskCards, respData.data.attributes],
+                clicked: false,
+                inputValue: ''
             })
         });
     };
@@ -49,21 +51,24 @@ class ListCardContainer extends Component {
                 <div className='list-card-container'>
                     <h2>{this.props.listCards.name}</h2>
                     {this.state.taskCards.map(task => (
-                        <Card task={task.content} />
+                        <Card task={task.content} taskId={task.id} />
                     ))}
                     {!this.state.clicked ? (
                         <div className='add-card-button'>
-                        <button onClick={this.handleClick}>Add a card</button>
+                        <button onClick={this.handleClick} className='add-card-btn'>Add a card</button>
                 </div>
                      ) : (
-                         <form onSubmit={this.handleSubmit}>
-                             <input 
+                         <form onSubmit={this.handleSubmit} className='list-card-form'>
+                             <textarea
                              onChange={this.handleChange}
                              value={this.state.inputValue}
                              type='text'
-                            />
+                             placeholder='Enter a title for this card...'
+                            ></textarea>
+                            <div className='list-card-form-wrapper'>
                             <input type='submit' />
-                            <button onClick={this.handleClick}>x</button>
+                            <h2 onClick={this.handleClick}>x</h2>
+                            </div>
                          </form>
                      )}
             </div>
