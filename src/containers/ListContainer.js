@@ -40,11 +40,11 @@ class ListsContainer extends Component {
         .then(resp => resp.json())
         .then(respData => {
             let id = respData.data.id
-            let { name, project_id, task } = respData.data.attributes
+            let { name, project_id, tasks } = respData.data.attributes
             let newListCardObj = {
                 id,
                 name,
-                tasks: task 
+                tasks
             }
             this.setState({
                 listCards: [...this.state.listCards, newListCardObj],

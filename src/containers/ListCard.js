@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Card from '../components/Card'
 import ListCardContainer from "./ListCardContainer";
 
-class ListCard extends Component {
+class ListCards extends Component {
 
     state = {
         cards: []
