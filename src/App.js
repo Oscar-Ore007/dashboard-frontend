@@ -15,6 +15,7 @@ class App extends Component {
     state = {
         login: false,
         projectList: [],
+        currentProject: {},
         projectsLoaded: false 
     };
 
@@ -85,14 +86,12 @@ class App extends Component {
             body: JSON.stringify({ username, password })
         })
         .then(res => res.json())
-        .then(data => {
-            if (data.errors) return alert(data.errors.reduce((message, string) => 
-    message += `${string}. \n`, ''))
-            debugger 
+        .then(userInfo => {
+        
             this.setState(
                 {
                     login: true,
-                    currentUser: data 
+                    currentUser: userInfo
                 },
                 () => {
                     localStorage.setItem('token', userinfo.token);
@@ -114,6 +113,24 @@ class App extends Component {
             this.setState({
                 projectList: respData.data.attributes.projects,
                 projectsLoaded: true
+            });
+        });
+    };
+
+    loadCurrentProject = projectId => {
+        fetch(`http://localhost:3000/projects/${projectId}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+                Authorization: localStorage.token 
+            }
+        })
+        .then(res => res.json())
+        .then(fetchData => {
+            let { attributes } = fetchData.data;
+            this.setState({
+                currentProject: {...attributes}
             });
         });
     };
@@ -152,23 +169,34 @@ render() {
             /> 
             <Switch>
                 <Route exact path="/about" component={About} /> 
-                <Route exact path="/project" component={ListContainer} /> 
+                <Route 
+                exact 
+                path='/projects/:id' 
+                render={renderProps => {
+                    let foundProjectArr = document.URL.split("/");
+                    let currentProject = foundProjectArr[foundProjectArr.length - 1];
+
+                    return (
+                        <ListContainer
+                        {...renderProps}
+                        currentProject={this.state.currentProject}
+                        />
+                    );
+                }}
+                /> 
                 <Route
                 exact 
                 path="/"
-                render={routerProps => (
-                    <div className="home-container">
-                        <Sidebar />
-                        {this.state.projectsLoaded ? (
-                          <ProjectContainer 
-                          currentUser={this.state.currentUser} 
-                          render={routerProps => (
-                              <ProjectContainer
-                              {...routeProps}
-                              userLoggedIn={this.state.login}
-                              />
-                        )}
-                        projectList={this.state.projectList}
+               render={routerProps => (
+                   <div className='home-container'>
+                       <Sidebar /> 
+                {this.state.projectsLoaded ? (
+                    <ProjectContainer
+                    {...routerProps}
+                    currentUser={this.state.currentUser}
+                    userLoggedIn={this.state.login}
+                    loadCurrentProject={this.loadCurrentProject}
+                    projectList={this.state.projectList}
                         />
                     ) : (
                    

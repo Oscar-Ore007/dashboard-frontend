@@ -20,9 +20,10 @@ class ProjectContainer extends Component {
                 <h2> All Projects </h2>
                 </div>
                     <Project 
-                    
+                    currentProject={this.props.currentProject}
                     projects={this.state.projectList} 
                     handleClick={this.handleClick} 
+                    loadCurrentProject={this.props.loadCurrentProject}
                     />
             </div>
         );
