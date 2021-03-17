@@ -182,6 +182,7 @@ render() {
                         <ListContainer
                         {...renderProps}
                         currentProject={this.state.currentProject}
+                        loadCurrentProject={this.loadCurrentProject}
                         />
                     )
                     return (
