@@ -4,10 +4,9 @@ import Project from "../components/Project";
 class ProjectContainer extends Component {
 
     state = {
-        projectList: [
-            { name: 'My First Project!'}
-        ]
+        projectList: this.props.projectList
     };
+
 
     handleClick = () => {
         this.setState({
@@ -18,9 +17,13 @@ class ProjectContainer extends Component {
         return (
             <div className="project-container">
                 <div>
-                <h2> Project Container </h2>
+                <h2> All Projects </h2>
                 </div>
-                    <Project projects={this.state.projectList} handleClick={this.handleClick} />
+                    <Project 
+                    
+                    projects={this.state.projectList} 
+                    handleClick={this.handleClick} 
+                    />
             </div>
         );
     }

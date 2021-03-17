@@ -1,9 +1,14 @@
 import React, { Component } from 'react' 
 
 export class Project extends Component {
+
+    handleClick = () => {
+        console.log('hello')
+    }
     render() {
         const renderProjects = this.props.projects.map(project => {
-            return <div className="project"><h3>{project.name}</h3></div>
+            return <div onClick={this.handleClick} className="project"><h3>
+                {project.name}</h3></div>
         })
         return (
             <div className='single-project-container'>

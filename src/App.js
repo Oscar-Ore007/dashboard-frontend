@@ -13,7 +13,9 @@ import ListsContainer from './containers/ListsContainer'
 class App extends Component {
 
     state = {
-        login: false 
+        login: false,
+        projectList: [],
+        projectsLoaded: false 
     };
 
     componentDidMount(){
@@ -25,6 +27,25 @@ class App extends Component {
         ? this.getUserFromToken()
         : console.log("You are not logged in");
     };
+
+    logInUserByToken = () => {
+        fetch("http://localhost:3000/persist", {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': localStorage.token,
+                'Accept': 'application/json'
+            }
+        }).then(res => res.json())
+        .then(userInfo => {
+            this.setState({
+                login: true,
+                currentUser: userInfo
+            }, () => {
+                this.fetchprojectList();
+            })
+        })
+    }
 
     getUserFromToken = () => {
         fetch('http://localhost:3000/persist', {
@@ -46,7 +67,10 @@ class App extends Component {
             },
             () => {
                 console.log(this.state.currentUser);
-            }
+                if (this.state.login) {
+                    this.logInUserByToken();
+                 }
+                }
             );
         });
     };
@@ -71,9 +95,26 @@ class App extends Component {
                     currentUser: data 
                 },
                 () => {
-                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('token', userinfo.token);
+                    this.fetchprojectList();
                 }
             );
+        });
+    };
+
+    fetchprojectList = () => {
+        fetch(`http://localhost:3000/users/${this.state.currentUser.user_id}`, {
+            headers: {
+                Authorization: localStorage.token 
+            }
+        })
+
+        .then(resp => resp.json())
+        .then(respData => {
+            this.setState({
+                projectList: respData.data.attributes.projects,
+                projectsLoaded: true
+            });
         });
     };
 
@@ -107,7 +148,8 @@ render() {
 
     return this.state.login ? (
         <Router>
-            <Header login={this.state.login} /> 
+            <Header login={this.state.login} currentUser={this.state.currentUser} 
+            /> 
             <Switch>
                 <Route exact path="/about" component={About} /> 
                 <Route exact path="/project" component={ListContainer} /> 
@@ -117,8 +159,24 @@ render() {
                 render={routerProps => (
                     <div className="home-container">
                         <Sidebar />
-                        <ProjectContainer /> 
+                        {this.state.projectsLoaded ? (
+                          <ProjectContainer 
+                          currentUser={this.state.currentUser} 
+                          render={routerProps => (
+                              <ProjectContainer
+                              {...routeProps}
+                              userLoggedIn={this.state.login}
+                              />
+                        )}
+                        projectList={this.state.projectList}
+                        />
+                    ) : (
+                   
+                    <div>
+                        <h2>Getting your Projects Together...</h2>
                     </div>
+                )}
+                 </div>
                 )}
                 />
             </Switch>
