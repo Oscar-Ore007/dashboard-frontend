@@ -8,10 +8,28 @@ class ProjectContainer extends Component {
     };
 
 
-    handleClick = () => {
-        this.setState({
-            projectList: [{ name: "New Project" }, ...this.state.projectList]
-        });
+    // handleClick = () => {
+    //     this.setState({
+    //         projectList: [{ name: "New Project" }, ...this.state.projectList]
+    //     });
+    createNewProject = (name) => {
+        const user_id = this.props.currentuser.user_id
+        fetch("http://localhost:3000/projects", {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Authorization": localStorage.token
+            },
+            body: JSON.stringify({ user_id, name })
+        })
+        .then(res => res.json())
+        .then(projectData => {
+            if (projectData.errors)
+            this.setState({
+                projectList: [{ name }, ...this.state.projectList]
+            });
+        })
     };
     render() {
         return (
@@ -24,6 +42,8 @@ class ProjectContainer extends Component {
                     projects={this.state.projectList} 
                     handleClick={this.handleClick} 
                     loadCurrentProject={this.props.loadCurrentProject}
+                    renderProjectForm={this.renderProjectForm}
+                    createNewProject={this.createNewProject}
                     />
             </div>
         );
