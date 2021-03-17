@@ -16,6 +16,7 @@ class App extends Component {
         login: false,
         projectList: [],
         currentProject: {},
+        currentProjectLoaded: false,
         projectsLoaded: false 
     };
 
@@ -130,7 +131,8 @@ class App extends Component {
         .then(fetchData => {
             let { attributes } = fetchData.data;
             this.setState({
-                currentProject: {...attributes}
+                currentProject: {...attributes},
+                currentProjectLoaded: true 
             });
         });
     };
@@ -176,12 +178,15 @@ render() {
                     let foundProjectArr = document.URL.split("/");
                     let currentProject = foundProjectArr[foundProjectArr.length - 1];
 
-                    return (
+                if(this.state.currentProjectLoaded) return (
                         <ListContainer
                         {...renderProps}
                         currentProject={this.state.currentProject}
                         />
-                    );
+                    )
+                    return (
+                        <h1>Please wait while we load your projects...</h1>
+                    )
                 }}
                 /> 
                 <Route

@@ -1,28 +1,24 @@
 import React, { Component } from 'react'
-import ListCard from './ListCard'
+import ListCards from './ListCards'
 
 class ListsContainer extends Component {
 
     state = {
-        listCards: [
-            {name: 'Create Backend'},
-            {name: 'Frontend'},
-            {name: 'Complete'}
-        ]
+        listCards: this.props.currentProject.lists
     }
 
-    handleClick = () => {
-        this.setState({
-            listCards: [ {name: 'New Task'}, 
-            ...this,state.listCards]
-        })
-    }
+    // handleClick = () => {
+    //     this.setState({
+    //         listCards: [ {name: 'New Task'}, 
+    //         ...this,state.listCards]
+    //     })
+    // }
 
 
     render() {
         return (
             <div className="list-container">
-                <ListCard listCards={this.state.listCards}/>
+                <ListCards listCards={this.state.listCards}/>
                 <div onClick={this.handleClick} className='list-card-container'>
                     <h3>Add a List</h3>
                 </div>
