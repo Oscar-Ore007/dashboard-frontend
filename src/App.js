@@ -14,6 +14,7 @@ class App extends Component {
 
     state = {
         login: false,
+        currentUser: {},
         projectList: [],
         currentProject: {},
         currentProjectLoaded: false,
@@ -38,14 +39,26 @@ class App extends Component {
                 'Authorization': localStorage.token,
                 'Accept': 'application/json'
             }
-        }).then(res => res.json())
+        })
+        .then(res => res.json())
         .then(userInfo => {
-            this.setState({
+            this.setState(
+                {
                 login: true,
                 currentUser: userInfo
-            }, () => {
+            }, 
+            () => {
                 this.fetchprojectList();
-            })
+                }
+            );
+        });
+    };
+
+    logOutUser = () => {
+        localStorage.clear()
+        this.setState({
+            login: false,
+            currentUser:{}
         })
     }
 
@@ -177,7 +190,7 @@ render() {
     return this.state.login ? (
         <Router>
             <Header login={this.state.login} currentUser={this.state.currentUser} 
-            resetCurrentProject={this.resetCurrentProject}/> 
+            resetCurrentProject={this.resetCurrentProject} logOutUser={this.logOutUser}/> 
             <Switch>
                 <Route exact path="/about" component={About} /> 
                 <Route 
