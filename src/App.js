@@ -30,9 +30,9 @@ class App extends Component {
         fetch('http://localhost:3000/persist', {
             method: 'GET',
             headers: {
-                Authorization: localStorage.token,
+                'Authorization': localStorage.token,
                 'Content-Type': 'application/json',
-                Accept: 'application/json'
+                'Accept': 'application/json'
             }
         })
 
