@@ -61,6 +61,7 @@ class App extends Component {
 
         .then(res => res.json())
         .then(userInfo => {
+            if (userInfo.errors) return alert(userInfo.errors.reduce((message, string) => message += `${string}. \n`, ''))
             this.setState(
                 {
                     login: true,
@@ -147,16 +148,17 @@ class App extends Component {
             body: JSON.stringify({ name, username, email, password })
         })
         .then(res => res.json())
-        .then(data => {
-            if (data.error) return alert(data.error.reduce((message, string) =>
+        .then(userInfo => {
+            if (userInfo.errors) return alert(userInfo.error.reduce((message, string) =>
             message += `${string}. \n`, ''))
             this.setState(
                 {
                     login: true,
-                    currentUser: data 
+                    currentUser: userInfo 
                 },
                 () => {
-                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('token', userInfo.token);
+                    this.fetchprojectList();
                 }
             );
         });
