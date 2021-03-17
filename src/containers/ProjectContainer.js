@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Project from "../components/Project";
+import Project from '../components/Project';
 
 class ProjectContainer extends Component {
 
@@ -12,24 +12,25 @@ class ProjectContainer extends Component {
     //     this.setState({
     //         projectList: [{ name: "New Project" }, ...this.state.projectList]
     //     });
-    createNewProject = (name) => {
-        const user_id = this.props.currentuser.user_id
-        fetch("http://localhost:3000/projects", {
+    createNewProject = name => {
+        const user_id = this.props.currentuser.user_id;
+        fetch('http://localhost:3000/projects', {
             method: 'POST',
             headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json",
-                "Authorization": localStorage.token
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': localStorage.token
             },
             body: JSON.stringify({ user_id, name })
         })
         .then(res => res.json())
         .then(projectData => {
-            if (projectData.errors)
+            let { id, attributes } = projectData.data 
+            let newProjectObj = { id, ...attributes }
             this.setState({
-                projectList: [{ name }, ...this.state.projectList]
+                projectList: [{ newProjectObj }, ...this.state.projectList]
             });
-        })
+        });
     };
     render() {
         return (
