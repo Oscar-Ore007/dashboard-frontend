@@ -1,6 +1,24 @@
 import React, { Component } from 'react' 
+import ProjectForm from "../components/ProjectForm";
+import { Link } from 'react-router-dom';
 
 export class Project extends Component {
+
+    state = {
+        projectCreationMode: false
+    }
+
+    renderProjectForm = () => {
+        this.setState({
+            projectCreationMode: true
+        })
+    }
+
+    closeProjectForm = () => {
+        this.setState({
+            projectCreationMode: false 
+        })
+    }
 
     handleClick = (evt, projectId) => {
         this.props.loadCurrentProject(projectId)
@@ -14,10 +32,19 @@ export class Project extends Component {
         return (
             <div className='single-project-container'>
                 {renderProjects}
-                <div onClick={this.props.handleClick} className='project create-project'>
+                {
+                    this.state.projectCreationMode
+                    ?
+                    <div className='project create-project'>
+                        <ProjectForm closeProjectForm={this.closeProjectForm}
+                        createNewProject={this.props.createNewProject} />
+                        </div>
+                        :
+                <div onClick={this.renderProjectForm} className='project create-project'>
 
                     <h3>Create Project</h3>
                 </div>
+                    }
             </div>
         )
     }
