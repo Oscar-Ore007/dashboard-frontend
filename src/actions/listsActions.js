@@ -1,4 +1,4 @@
-import { CONSTANTS } from ".";
+import { CONSTANTS } from "../actions";
 
 export const addList = title => {
   return {
@@ -20,10 +20,29 @@ export const sort = (
     payload: {
       droppableIdStart,
       droppableIdEnd,
-      droppableIndexStart,
       droppableIndexEnd,
+      droppableIndexStart,
       draggableId,
       type
+    }
+  };
+};
+
+export const editTitle = (listID, newTitle) => {
+  return {
+    type: CONSTANTS.EDIT_LIST_TITLE,
+    payload: {
+      listID,
+      newTitle
+    }
+  };
+};
+
+export const deleteList = listID => {
+  return {
+    type: CONSTANTS.DELETE_LIST,
+    payload: {
+      listID
     }
   };
 };

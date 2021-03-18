@@ -1,4 +1,4 @@
-import React, { Component, PureComponent } from "react";
+import React, { PureComponent } from "react";
 import TrelloList from "./TrelloList";
 import { connect } from "react-redux";
 import TrelloCreate from "./TrelloCreate";
@@ -9,13 +9,10 @@ const ListsContainer = styled.div`
   display: flex;
   flex-direction: row;
 `;
-
 // TODO: Fix performance issue
-
 class App extends PureComponent {
   onDragEnd = result => {
     const { destination, source, draggableId, type } = result;
-
     if (!destination) {
       return;
     }
@@ -31,25 +28,33 @@ class App extends PureComponent {
     );
   };
   render() {
-    const { lists } = this.props;
+    const { lists, listOrder, cards } = this.props;
+
     return (
       <DragDropContext onDragEnd={this.onDragEnd}>
-        <h2>Hello Youtube</h2>
+        <h2>DashBoard</h2>
         <Droppable droppableId="all-lists" direction="horizontal" type="list">
           {provided => (
             <ListsContainer
               {...provided.droppableProps}
               ref={provided.innerRef}
             >
-              {lists.map((list, index) => (
-                <TrelloList
-                  listID={list.id}
-                  key={list.id}
-                  title={list.title}
-                  cards={list.cards}
-                  index={index}
-                />
-              ))}
+              {listOrder.map((listID, index) => {
+                const list = lists[listID];
+                if (list) {
+                  const listCards = list.cards.map(cardID => cards[cardID]);
+
+                  return (
+                    <TrelloList
+                      listID={list.id}
+                      key={list.id}
+                      title={list.title}
+                      cards={listCards}
+                      index={index}
+                    />
+                  );
+                }
+              })}
               {provided.placeholder}
               <TrelloCreate list />
             </ListsContainer>
@@ -60,6 +65,8 @@ class App extends PureComponent {
   }
 }
 const mapStateToProps = state => ({
-  lists: state.lists
+  lists: state.lists,
+  listOrder: state.listOrder,
+  cards: state.cards
 });
 export default connect(mapStateToProps)(App);
