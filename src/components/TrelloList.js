@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { connect } from "react-redux";
 import { editTitle, deleteList } from "../actions";
 import Icon from "@material-ui/core/Icon";
+
 const ListContainer = styled.div`
   background-color: #dfe3e6;
   border-radius: 3px;
@@ -14,6 +15,7 @@ const ListContainer = styled.div`
   height: 100%;
   margin: 0 8px 0 0;
 `;
+
 const StyledInput = styled.input`
   width: 100%;
   border: none;
@@ -31,6 +33,7 @@ const TitleContainer = styled.div`
   align-items: center;
   cursor: pointer;
 `;
+
 const DeleteButton = styled(Icon)`
   cursor: pointer;
   transition: opacity 0.3s ease-in-out;
@@ -39,15 +42,18 @@ const DeleteButton = styled(Icon)`
     opacity: 0.8;
   }
 `;
+
 const ListTitle = styled.h4`
   transition: background 0.3s ease-in;
   ${TitleContainer}:hover & {
     background: #ccc;
   }
 `;
+
 const TrelloList = ({ title, cards, listID, index, dispatch }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [listTitle, setListTitle] = useState(title);
+
   const renderEditInput = () => {
     return (
       <form onSubmit={handleFinishEditing}>
@@ -71,13 +77,16 @@ const TrelloList = ({ title, cards, listID, index, dispatch }) => {
     e.preventDefault();
     setListTitle(e.target.value);
   };
+
   const handleFinishEditing = e => {
     setIsEditing(false);
     dispatch(editTitle(listID, listTitle));
   };
+
   const handleDeleteList = () => {
     dispatch(deleteList(listID));
   };
+
   return (
     <Draggable draggableId={String(listID)} index={index}>
       {provided => (
@@ -122,4 +131,5 @@ const TrelloList = ({ title, cards, listID, index, dispatch }) => {
     </Draggable>
   );
 };
+
 export default connect()(TrelloList);

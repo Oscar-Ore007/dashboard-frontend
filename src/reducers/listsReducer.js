@@ -1,21 +1,32 @@
 import { CONSTANTS } from "../actions";
+
 let listID = 1;
 let cardID = 0;
 
-const initialState = {};
+const initialState = {
+  "list-0": {
+    id: "list-0",
+    cards: ["card-0"],
+    title: "myList",
+    board: "board-0"
+  }
+};
 
 const listsReducer = (state = initialState, action) => {
   switch (action.type) {
     case CONSTANTS.ADD_LIST: {
       const newList = {
-        title: action.payload,
+        title: action.payload.title,
         id: `list-${listID}`,
         cards: []
       };
+
       const newState = { ...state, [`list-${listID}`]: newList };
       listID += 1;
+
       return newState;
     }
+
     case CONSTANTS.ADD_CARD: {
       cardID += 1;
       const { listID } = action.payload;
@@ -23,18 +34,22 @@ const listsReducer = (state = initialState, action) => {
       list.cards.push(`card-${cardID}`);
       return { ...state, [listID]: list };
     }
+
     case CONSTANTS.DRAG_HAPPENED:
       const {
         droppableIdStart,
         droppableIdEnd,
         droppableIndexEnd,
         droppableIndexStart,
+
         type
       } = action.payload;
+
       // draggin lists around - the listOrderReducer should handle this
       if (type === "list") {
         return state;
       }
+
       // in the same list
       if (droppableIdStart === droppableIdEnd) {
         const list = state[droppableIdStart];
@@ -42,6 +57,7 @@ const listsReducer = (state = initialState, action) => {
         list.cards.splice(droppableIndexEnd, 0, ...card);
         return { ...state, [droppableIdStart]: list };
       }
+
       // other list
       if (droppableIdStart !== droppableIdEnd) {
         // find the list where the drag happened
@@ -50,6 +66,7 @@ const listsReducer = (state = initialState, action) => {
         const card = listStart.cards.splice(droppableIndexStart, 1);
         // find the list where the drag ended
         const listEnd = state[droppableIdEnd];
+
         // put the card in the new list
         listEnd.cards.splice(droppableIndexEnd, 0, ...card);
         return {
@@ -88,4 +105,5 @@ const listsReducer = (state = initialState, action) => {
       return state;
   }
 };
+
 export default listsReducer;
